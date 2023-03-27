@@ -1,39 +1,14 @@
-package com.springbootacademy.pointofsale.service;
-import com.springbootacademy.pointofsale.dto.CustomerDTO;
-import com.springbootacademy.pointofsale.dto.request.CustomerSaveRequestDTO;
-import com.springbootacademy.pointofsale.dto.request.CustomerUpdateByDTO;
-import com.springbootacademy.pointofsale.dto.request.CustomerUpdateQueryRequestDTO;
-import com.springbootacademy.pointofsale.dto.request.CustomerUpdateRequestDTO;
-import com.springbootacademy.pointofsale.dto.response.ResponseActiveCustomerDTO;
-import com.springbootacademy.pointofsale.dto.response.ResponseCustomerFilterDTO;
-import javassist.NotFoundException;
+package com.mypayapp.service;
 
-import java.util.List;
-
+import com.mypayapp.model.*;
 
 public interface CustomerService {
-    String addCustomer(CustomerSaveRequestDTO customerSaveRequestDTO);
-    String updateCustomer(CustomerUpdateRequestDTO customerUpdateRequestDTO);
+    BaseResponse getOtpVerificationCustomer(CustomerRequestModel customerRequestModel);
 
-    CustomerDTO getCustomerById(int id);
+    BaseResponse verifyedCustomer(CustomerVerifyOtpRequestModel customerVerifyOtpModel);
 
-    List<CustomerDTO> getAllCustomers();
+    BaseResponse saveCustomer(CustomerSaveRequestModel customerSaveRequestModel);
 
-    boolean deleteCustomer(int id) throws NotFoundException;
+    BaseResponse updateCustomer(CustomerUpdateRequestModel customerUpdateRequestModel);
 
-    List<CustomerDTO> getByName(String customerName) throws NotFoundException;
-
-    List<CustomerDTO> getAllCustomersByActiveState() throws NotFoundException;
-
-    List<ResponseActiveCustomerDTO> getAllCustomersByActiveStateOnlyName() throws NotFoundException;
-
-    String updateCustomerByQuery(CustomerUpdateQueryRequestDTO customerUpdateQueryRequestDTO,int id);
-
-    CustomerDTO getCustomerByNic(String nic);
-
-    ResponseCustomerFilterDTO getCustomerByIdByFilter(int id);
-
-    String updateCustomerByRequest(CustomerUpdateByDTO customerUpdateRequestDTO, int id);
-
-    CustomerDTO getCustomerByIdIsActive(int id);
 }

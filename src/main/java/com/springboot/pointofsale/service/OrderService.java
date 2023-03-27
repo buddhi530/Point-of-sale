@@ -1,7 +1,8 @@
-package com.springbootacademy.pointofsale.service;
+package com.mypayapp.service;
 
-import com.springbootacademy.pointofsale.dto.request.RequestOrderSaveDTO;
+import com.mypayapp.model.BaseResponse;
+import com.mypayapp.model.OrderSaveRequestModel;
 
 public interface OrderService {
-    String addOrder(RequestOrderSaveDTO requestOrderSaveDTO);
+    BaseResponse saveOrder(OrderSaveRequestModel orderSaveRequestModel);
 }
