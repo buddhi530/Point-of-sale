@@ -1,29 +1,27 @@
-package com.springbootacademy.pointofsale.controller;
+package com.mypayapp.controller;
 
-import com.springbootacademy.pointofsale.dto.request.ItemSaveRequestDTO;
-import com.springbootacademy.pointofsale.dto.request.RequestOrderSaveDTO;
-import com.springbootacademy.pointofsale.service.OrderService;
-import com.springbootacademy.pointofsale.util.StandardResponse;
+import com.mypayapp.model.BaseResponse;
+import com.mypayapp.model.OrderSaveRequestModel;
+import com.mypayapp.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@CrossOrigin
-@RequestMapping("api/v1/order")
+@RequestMapping("api/order")
 public class OrderController {
 
     @Autowired
     private OrderService orderService;
 
-    @PostMapping(path = "/save")
-    public ResponseEntity<StandardResponse> saveItem(@RequestBody RequestOrderSaveDTO requestOrderSaveDTO) {
-        String id = orderService.addOrder(requestOrderSaveDTO);
-
-        return new ResponseEntity<StandardResponse>(
-                new StandardResponse(201, id + "item successfully saved", id),
-                HttpStatus.CREATED
-        );
+    @PostMapping(path = "save")
+    public ResponseEntity<BaseResponse> saveOrder(@RequestBody OrderSaveRequestModel orderSaveRequestModel){
+        System.out.println("order=>"+orderSaveRequestModel);
+        BaseResponse response = orderService.saveOrder(orderSaveRequestModel);
+        return new ResponseEntity<BaseResponse>(response, HttpStatus.OK);
     }
 }
