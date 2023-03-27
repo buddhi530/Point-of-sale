@@ -1,36 +1,25 @@
-package com.springbootacademy.pointofsale.entity;
-
-import com.vladmihalcea.hibernate.type.json.JsonType;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.hibernate.annotations.TypeDef;
-import org.hibernate.annotations.TypeDefs;
+package com.mypayapp.entity;
 
 import javax.persistence.*;
+import javax.xml.soap.Name;
 
 @Entity
 @Table(name = "order_details")
-@TypeDefs({
-        @TypeDef(name = "json",typeClass = JsonType.class)
-})
-@AllArgsConstructor
-@NoArgsConstructor
-@Data
 public class OrderDetails {
-    @Id
-    @Column(name = "order_details_id",length = 45)
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int orderDetailsId;
 
-    @Column(name = "item_name",length = 100,nullable = false)
+    @Id
+    @Column(name="order_details_id")
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int id;
+
+    @Column(name = "item_name")
     private String itemName;
 
-    @Column(name = "qty",length = 100,nullable = false)
+    @Column(name = "quantity")
     private double qty;
 
-    @Column(name = "amount",nullable = false)
-    private Double amount;
+    @Column(name = "item_Amount")
+    private double itemAmount;
 
     @ManyToOne
     @JoinColumn(name="order_id", nullable=false)
@@ -40,7 +29,51 @@ public class OrderDetails {
     @JoinColumn(name="item_id", nullable=false)
     private Item items;
 
+    public int getId() {
+        return id;
+    }
 
+    public void setId(int id) {
+        this.id = id;
+    }
 
+    public String getItemName() {
+        return itemName;
+    }
 
+    public void setItemName(String itemName) {
+        this.itemName = itemName;
+    }
+
+    public double getQty() {
+        return qty;
+    }
+
+    public void setQty(double qty) {
+        this.qty = qty;
+    }
+
+    public double getItemAmount() {
+        return itemAmount;
+    }
+
+    public void setItemAmount(double itemAmount) {
+        this.itemAmount = itemAmount;
+    }
+
+    public Order getOrders() {
+        return orders;
+    }
+
+    public void setOrders(Order orders) {
+        this.orders = orders;
+    }
+
+    public Item getItems() {
+        return items;
+    }
+
+    public void setItems(Item items) {
+        this.items = items;
+    }
 }

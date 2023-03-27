@@ -1,53 +1,34 @@
-package com.springbootacademy.pointofsale.entity;
+package com.mypayapp.entity;
 
-import com.springbootacademy.pointofsale.entity.enums.MeasuringUnitType;
-import com.vladmihalcea.hibernate.type.json.JsonType;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.hibernate.annotations.TypeDef;
-import org.hibernate.annotations.TypeDefs;
 
 import javax.persistence.*;
 import java.util.Set;
 
 @Entity
-@Table(name = "item")
-@TypeDefs({
-        @TypeDef(name = "json",typeClass = JsonType.class)
-})
-@AllArgsConstructor
-@NoArgsConstructor
-@Data
+@Table(name = "items")
 public class Item {
-    @Id
-    @Column(name = "item_id",length = 45)
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int itemId;
 
-    @Column(name = "item_name",length = 100,nullable = false)
+    @Id
+    @Column(name="item_id")
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int id;
+
+    @Column(name = "item_name",nullable = false)
     private String itemName;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "measuring_unit",length = 100,nullable = false)
-    private MeasuringUnitType measuringUnit;
-
-    @Column(name = "balance_qty",length = 100,nullable = false)
-    private double balanceQty;
-
-    @Column(name = "supplier_price",length = 100,nullable = false)
+    @Column(name = "suplier_price",nullable = false)
     private double supplierPrice;
 
-    @Column(name = "selling_price",length = 100,nullable = false)
+    @Column(name = "sell_price",nullable = false)
     private double sellingPrice;
 
-    @Column(name = "active_state",columnDefinition = "TINYINT default 1")
-    private boolean activeState;
+    @Column(name = "balance_qty",nullable = false)
+    private double balanceqty;
 
+    @Column(name = "status")
+    private boolean activeStatus;
 
     @OneToMany(mappedBy="items")
-    private Set<OrderDetails> orderDetails;
-
-
+    private Set<OrderDetails> orderDetailsSet;
 
 }

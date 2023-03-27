@@ -1,137 +1,111 @@
-package com.springbootacademy.pointofsale.entity;
+package com.mypayapp.entity;
 
-import com.vladmihalcea.hibernate.type.json.JsonType;
-import org.hibernate.annotations.Type;
-import org.hibernate.annotations.TypeDef;
-import org.hibernate.annotations.TypeDefs;
+
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.Set;
+
 
 @Entity
 @Table(name = "customer")
-@TypeDefs({
-        @TypeDef(name = "json",typeClass = JsonType.class)
-})
 public class Customer {
 
     @Id
-    @Column(name = "customer_id",length = 45)
+    @Column(name="id")
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int customerId;
+    private int id;
 
-    @Column(name = "customer_name",length = 100,nullable = false)
-    private String customerName;
+    @Column(name="name")
+    private  String name;
 
-    @Column(name = "customer_address",length = 150)
-    private String customerAddress;
+    @Column(name="email",unique = true)
+    private  String email;
 
-    @Column(name = "customer_salary",length = 25)
-    private double customerSalary;
+    @Column(name="address")
+    private  String address;
 
-    @Type(type = "json")
-    @Column(name = "contact_numbers",columnDefinition = "json")
-    private ArrayList contactNumbers;
+    @Column(name = "mobile")
+    private int mobile;
 
-    @Column(name = "nic",length = 12,unique = true)
-    private String nic;
+    @Column(name = "otp")
+    private int otp;
 
-    @Column(name = "active_state",columnDefinition = "TINYINT default 1")
-    private boolean activeState;
+    @Column(name = "isRegistered")
+    private int isRegistered;
 
-    @OneToMany(mappedBy="customers")
+
+    @OneToMany(mappedBy="customer")
+    private Set<PaymentMethod> paymentMethods;
+
+    @OneToMany(mappedBy="customer")
     private Set<Order> orders;
+
+
+    public int getIsRegistered(int i) {
+        return isRegistered;
+    }
+
+    public void setIsRegistered(int isRegistered) {
+        this.isRegistered = isRegistered;
+    }
+
+    public int getMobile() {
+        return mobile;
+    }
+
+    public int getOtp() {
+        return otp;
+    }
+
+    public void setOtp(int otp) {
+        this.otp = otp;
+    }
+
+    public void setMobile(int mobile) {
+        this.mobile = mobile;
+    }
 
     public Customer() {
 
     }
-    public Customer(int customerId, String customerName, String customerAddress, double customerSalary, ArrayList contactNumbers, String nic, boolean activeState) {
-        this.customerId = customerId;
-        this.customerName = customerName;
-        this.customerAddress = customerAddress;
-        this.customerSalary = customerSalary;
-        this.contactNumbers = contactNumbers;
-        this.nic = nic;
-        this.activeState = activeState;
+
+    public int getId() {
+        return id;
     }
 
-    public Customer(String customerName, String customerAddress, double customerSalary, ArrayList contactNumbers, String nic, boolean activeState) {
-        this.customerName = customerName;
-        this.customerAddress = customerAddress;
-        this.customerSalary = customerSalary;
-        this.contactNumbers = contactNumbers;
-        this.nic = nic;
-        this.activeState = activeState;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public int getCustomerId() {
-        return customerId;
+    public String getName() {
+        return name;
     }
 
-    public void setCustomerId(int customerId) {
-        this.customerId = customerId;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getCustomerName() {
-        return customerName;
+    public String getEmail() {
+        return email;
     }
 
-    public void setCustomerName(String customerName) {
-        this.customerName = customerName;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public String getCustomerAddress() {
-        return customerAddress;
+    public String getAddress() {
+        return address;
     }
 
-    public void setCustomerAddress(String customerAddress) {
-        this.customerAddress = customerAddress;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
-    public double getCustomerSalary() {
-        return customerSalary;
-    }
+    public Customer(int id, String name, String email, String address) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.address = address;
 
-    public void setCustomerSalary(double customerSalary) {
-        this.customerSalary = customerSalary;
-    }
-
-    public ArrayList getContactNumbers() {
-        return contactNumbers;
-    }
-
-    public void setContactNumbers(ArrayList contactNumbers) {
-        this.contactNumbers = contactNumbers;
-    }
-
-    public String getNic() {
-        return nic;
-    }
-
-    public void setNic(String nic) {
-        this.nic = nic;
-    }
-
-    public boolean isActiveState() {
-        return activeState;
-    }
-
-    public void setActiveState(boolean activeState) {
-        this.activeState = activeState;
-    }
-
-
-    @Override
-    public String toString() {
-        return "Customer{" +
-                "customerId=" + customerId +
-                ", customerName='" + customerName + '\'' +
-                ", customerAddress='" + customerAddress + '\'' +
-                ", customerSalary=" + customerSalary +
-                ", contactNumbers=" + contactNumbers +
-                ", nic='" + nic + '\'' +
-                ", activeState=" + activeState +
-                '}';
     }
 }
